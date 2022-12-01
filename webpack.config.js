@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: './src/index.js',
@@ -18,12 +19,12 @@ module.exports = {
         test: /\.(png|jpe?g|svg)$/,
         type: 'asset/resource',
         generator: {
-          filename: 'img/[name]-[contenthash].[ext]'
+          filename: 'img/[name]-[contenthash].[ext]',
         },
       },
       {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
     ],
   },
@@ -31,5 +32,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'src/index.html',
     }),
+    new MiniCssExtractPlugin({}),
   ],
 };
